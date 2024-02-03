@@ -1,0 +1,13 @@
+{
+  "name": "@monoscope/somepackage",
+  "version": "0.0.1",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./main": {
+      "default": "./src/main.ts"
+    }
+  }
+}

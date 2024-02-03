@@ -1,0 +1,7 @@
+{
+  "name": "monoscope",
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ]
+}

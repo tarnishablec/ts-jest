@@ -4,6 +4,7 @@ exports[`pathsToModuleNameMapper should convert tsconfig mapping with given pref
 {
   "^@foo\\-bar/common$": "<rootDir>/../common/dist/library",
   "^@pkg/(.*)$": "<rootDir>/packages/$1",
+  "^@scope/(.*?(?=(?:/|$)))(.*)$": "<rootDir>/packages/$1/src$2",
   "^api/(.*)$": "<rootDir>/src/api/$1",
   "^client$": [
     "<rootDir>/src/client",
@@ -25,6 +26,7 @@ exports[`pathsToModuleNameMapper should convert tsconfig mapping with given pref
 {
   "^@foo\\-bar/common$": "foo/../common/dist/library",
   "^@pkg/(.*)$": "foo/packages/$1",
+  "^@scope/(.*?(?=(?:/|$)))(.*)$": "foo/packages/$1/src$2",
   "^api/(.*)$": "foo/src/api/$1",
   "^client$": [
     "foo/src/client",

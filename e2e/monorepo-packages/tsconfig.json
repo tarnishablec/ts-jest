@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "Bundler",
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "@monoscope/*": ["./packages/*/src"]
+    }
+  },
+  "include": ["./packages/**/*.ts", "./__tests__/**/*.ts"]
+}

@@ -4,6 +4,7 @@
     "target": "ESNext",
     "moduleResolution": "Node16",
     "esModuleInterop": true,
+    "baseUrl": ".",
     "paths": {
       "@quadruple/*": ["quadruple/*"]
     }

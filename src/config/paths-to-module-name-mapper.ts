@@ -39,18 +39,29 @@ export const pathsToModuleNameMapper = (
       const cjsPattern = `^${escapeRegex(fromPath)}$`
       jestMap[cjsPattern] = paths.length === 1 ? paths[0] : paths
     } else if (segments.length === 2) {
+      let existStarAndNotInTailInToPaths = false
       const paths = toPaths.map((target) => {
         const enrichedTarget =
           target.startsWith('./') && prefix !== '' ? target.substring(target.indexOf('/') + 1) : target
         const enrichedPrefix = prefix !== '' && !prefix.endsWith('/') ? `${prefix}/` : prefix
 
-        return `${enrichedPrefix}${enrichedTarget.replace(/\*/g, '$1')}`
+        const indexOfStart = target.indexOf('*')
+        const existStarAndNotInTail = ~indexOfStart && indexOfStart < target.length - 1
+
+        if (existStarAndNotInTail) {
+          existStarAndNotInTailInToPaths = true
+        }
+
+        return `${enrichedPrefix}${enrichedTarget.replace(/\*/g, '$1')}${existStarAndNotInTail ? '$2' : ''}`
       })
+
+      const additionalRule = existStarAndNotInTailInToPaths ? '(.*?(?=(?:/|$)))' : ''
+
       if (useESM) {
-        const esmPattern = `^${escapeRegex(segments[0])}(.*)${escapeRegex(segments[1])}\\.js$`
+        const esmPattern = `^${escapeRegex(segments[0])}${additionalRule}(.*)${escapeRegex(segments[1])}\\.js$`
         jestMap[esmPattern] = paths.length === 1 ? paths[0] : paths
       }
-      const cjsPattern = `^${escapeRegex(segments[0])}(.*)${escapeRegex(segments[1])}$`
+      const cjsPattern = `^${escapeRegex(segments[0])}${additionalRule}(.*)${escapeRegex(segments[1])}$`
       jestMap[cjsPattern] = paths.length === 1 ? paths[0] : paths
     } else {
       logger.warn(interpolate(Errors.NotMappingMultiStarPath, { path: fromPath }))

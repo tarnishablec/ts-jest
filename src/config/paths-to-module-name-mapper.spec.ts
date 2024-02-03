@@ -13,6 +13,7 @@ const tsconfigMap = {
   'test/*/mock': ['test/mocks/*', 'test/__mocks__/*'],
   '@foo-bar/common': ['../common/dist/library'],
   '@pkg/*': ['./packages/*'],
+  '@scope/*': ['packages/*/src'],
 }
 
 describe('pathsToModuleNameMapper', () => {
@@ -21,6 +22,7 @@ describe('pathsToModuleNameMapper', () => {
       {
         "^@foo\\-bar/common$": "../common/dist/library",
         "^@pkg/(.*)$": "./packages/$1",
+        "^@scope/(.*?(?=(?:/|$)))(.*)$": "packages/$1/src$2",
         "^api/(.*)$": "src/api/$1",
         "^client$": [
           "src/client",
@@ -63,6 +65,8 @@ describe('pathsToModuleNameMapper', () => {
       '^@pkg/(.*)\\.js$': './packages/$1',
       '^@pkg/(.*)$': './packages/$1',
       '^(\\.{1,2}/.*)\\.js$': '$1',
+      '^@scope/(.*?(?=(?:/|$)))(.*)$': 'packages/$1/src$2',
+      '^@scope/(.*?(?=(?:/|$)))(.*)\\.js$': 'packages/$1/src$2',
     })
   })
 

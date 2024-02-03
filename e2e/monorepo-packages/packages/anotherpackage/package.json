@@ -1,0 +1,7 @@
+{
+  "name": "@monoscope/anotherpackage",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  }
+}
